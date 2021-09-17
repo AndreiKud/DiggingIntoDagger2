@@ -16,13 +16,18 @@
 
 package ru.andreikud.diggingintodagger2.registration
 
+import ru.andreikud.diggingintodagger2.di.scope.ActivityScope
 import ru.andreikud.diggingintodagger2.user.UserManager
+import javax.inject.Inject
 
 /**
  * RegistrationViewModel is the ViewModel that the Registration flow ([RegistrationActivity]
  * and fragments) uses to keep user's input data.
  */
-class RegistrationViewModel(val userManager: UserManager) {
+@ActivityScope
+class RegistrationViewModel @Inject constructor(
+    val userManager: UserManager
+) {
 
     private var username: String? = null
     private var password: String? = null

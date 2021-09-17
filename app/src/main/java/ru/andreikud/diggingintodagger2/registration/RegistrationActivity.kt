@@ -19,21 +19,29 @@ package ru.andreikud.diggingintodagger2.registration
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import ru.andreikud.diggingintodagger2.MyApplication
 import ru.andreikud.diggingintodagger2.R
+import ru.andreikud.diggingintodagger2.di.MyApplication
+import ru.andreikud.diggingintodagger2.di.subcomponent.RegistrationComponent
 import ru.andreikud.diggingintodagger2.main.MainActivity
 import ru.andreikud.diggingintodagger2.registration.enterdetails.EnterDetailsFragment
 import ru.andreikud.diggingintodagger2.registration.termsandconditions.TermsAndConditionsFragment
+import javax.inject.Inject
 
 class RegistrationActivity : AppCompatActivity() {
 
+    lateinit var registrationComponent: RegistrationComponent
+
+    @Inject
     lateinit var registrationViewModel: RegistrationViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        registrationComponent =
+            (application as MyApplication).appComponent.registrationComponentFactory().create()
+        registrationComponent.inject(this)
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
 
-        registrationViewModel = RegistrationViewModel((application as MyApplication).userManager)
         supportFragmentManager.beginTransaction()
             .add(R.id.fragment_holder, EnterDetailsFragment())
             .commit()

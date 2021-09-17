@@ -24,23 +24,27 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.core.widget.doOnTextChanged
-import androidx.lifecycle.Observer
 import ru.andreikud.diggingintodagger2.main.MainActivity
-import ru.andreikud.diggingintodagger2.MyApplication
 import ru.andreikud.diggingintodagger2.R
+import ru.andreikud.diggingintodagger2.di.MyApplication
+import ru.andreikud.diggingintodagger2.di.subcomponent.LoginComponent
 import ru.andreikud.diggingintodagger2.registration.RegistrationActivity
+import javax.inject.Inject
 
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var loginViewModel: LoginViewModel
+    @Inject
+    lateinit var loginViewModel: LoginViewModel
+
     private lateinit var errorTextView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        (application as MyApplication).appComponent.loginComponentFactory().create().inject(this)
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
         // Creates ViewModel and listens for the loginState LiveData
-        loginViewModel = LoginViewModel((application as MyApplication).userManager)
         loginViewModel.loginState.observe(this, { state ->
             when (state) {
                 is LoginSuccess -> {

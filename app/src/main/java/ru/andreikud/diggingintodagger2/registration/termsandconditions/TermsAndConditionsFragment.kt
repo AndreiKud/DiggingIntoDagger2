@@ -16,6 +16,7 @@
 
 package ru.andreikud.diggingintodagger2.registration.termsandconditions
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,12 +24,20 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import ru.andreikud.diggingintodagger2.R
+import ru.andreikud.diggingintodagger2.di.MyApplication
 import ru.andreikud.diggingintodagger2.registration.RegistrationActivity
 import ru.andreikud.diggingintodagger2.registration.RegistrationViewModel
+import javax.inject.Inject
 
 class TermsAndConditionsFragment : Fragment() {
 
-    private lateinit var registrationViewModel: RegistrationViewModel
+    @Inject
+    lateinit var registrationViewModel: RegistrationViewModel
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (requireActivity() as RegistrationActivity).registrationComponent.inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,8 +45,6 @@ class TermsAndConditionsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_terms_and_conditions, container, false)
-
-        registrationViewModel = (activity as RegistrationActivity).registrationViewModel
 
         view.findViewById<Button>(R.id.next).setOnClickListener {
             registrationViewModel.acceptTCs()
