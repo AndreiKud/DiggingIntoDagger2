@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package ru.andreikud.diggingintodagger2.main
+package ru.andreikud.diggingintodagger2.ui
 
 import ru.andreikud.diggingintodagger2.user.UserDataRepository
 import org.junit.Assert.assertEquals

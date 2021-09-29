@@ -21,7 +21,7 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
-import ru.andreikud.diggingintodagger2.main.MainActivity
+import ru.andreikud.diggingintodagger2.ui.MainActivity
 import org.junit.Test
 
 class ApplicationTest {
